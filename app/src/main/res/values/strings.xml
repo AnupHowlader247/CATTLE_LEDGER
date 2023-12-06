@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="login">Login</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="register">Register</string>
+    <string name="age">age</string>
+    <string name="country">country</string>
+    <string name="username">username</string>
+    <string name="sleepingtime">sleepingTime</string>
+    <string name="city">city</string>
+    <string name="click_to_login">Clic_kto_login</string>
+    <string name="click_to_register">New Here? Register</string>
+    <string name="logout">Logut</string>
+    <string name="profile">Profile</string>
+    <string name="CowsType">
+        <item>Cow</item>
+        <item>Bull</item>
+    </string>
+
+</resources>
