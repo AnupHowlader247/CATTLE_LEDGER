@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -15,11 +16,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ExpenseActivity extends AppCompatActivity {
     EditText Expensetype,amount;
+    TextView Date;
     FirebaseAuth mAuth;
     Button btnsub1;
 
@@ -32,12 +36,18 @@ public class ExpenseActivity extends AppCompatActivity {
         amount = findViewById(R.id.amount);
         btnsub1 = findViewById(R.id.btnExpense);
         mAuth = FirebaseAuth.getInstance();
+        Date = findViewById(R.id.date);
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        Date.setText(currentDate);
+
         btnsub1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Map<String,Object> map2 = new HashMap<>();
                 map2.put("ex_type",Expensetype.getText().toString());
                 map2.put("ex_amount",amount.getText().toString());
+                map2.put("Cdate",Date.getText().toString());
 
                 FirebaseDatabase.getInstance().getReference().child("users").child(mAuth.getCurrentUser().getUid().toString()).child("Expense").push().setValue(map2)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
