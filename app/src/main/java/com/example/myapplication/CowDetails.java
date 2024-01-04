@@ -2,7 +2,21 @@ package com.example.myapplication;
 
 public class CowDetails {
 
-    String cowID,type,weight,milk;
+    String cowID;
+    String type;
+    String weight;
+    String milk;
+    
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    String key;
 
     public CowDetails(String cowID,String type, String weight, String milk) {
         this.cowID = cowID;

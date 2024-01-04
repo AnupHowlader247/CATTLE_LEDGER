@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +25,7 @@ import java.util.Collections;
 
 public class CowdetailsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
+
     CowAdapter CowAdapter;
     ArrayList<CowDetails> cowList;
 
@@ -38,6 +41,7 @@ public class CowdetailsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         recyclerView = findViewById(R.id.cow_recylcer_id);
+
         searchView = findViewById(R.id.search);
         searchView.clearFocus();
         recyclerView.setHasFixedSize(true);
@@ -97,13 +101,19 @@ public class CowdetailsActivity extends AppCompatActivity {
             if(cowDetails.getCowID().toLowerCase().contains(text.toLowerCase())){
                 searchList.add((cowDetails));
             }
+            else{
+                Toast.makeText(this, "No Data Found!", Toast.LENGTH_SHORT).show();
+            }
         }
         CowAdapter.searchDataList(searchList);
+
     }
+
     public void DtlsBack(View view) {
         Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
         startActivity(intent);
         finish();
 
     }
+
 }
