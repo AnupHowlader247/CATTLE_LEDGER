@@ -18,7 +18,15 @@ public class CowDetails {
 
     String key;
 
-    public CowDetails(String cowID,String type, String weight, String milk) {
+    public CowDetails(String cowID, String type, String weight, String milk, String key) {
+        this.cowID = cowID;
+        this.type = type;
+        this.weight = weight;
+        this.milk = milk;
+        this.key = key;
+    }
+
+    public CowDetails(String cowID, String type, String weight, String milk) {
         this.cowID = cowID;
         this.type = type;
         this.weight = weight;

@@ -59,6 +59,7 @@ public class CowdetailsActivity extends AppCompatActivity {
                 cowList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.child(mAuth.getCurrentUser().getUid().toString()).child("cows").getChildren()){
 
+                    String cowKey = dataSnapshot.getKey();
                     String getID = dataSnapshot.child("id").getValue(String.class);
                     String getCategory = dataSnapshot.child("category").getValue(String.class);
                     String getWeight = dataSnapshot.child("weight").getValue(String.class);
@@ -67,7 +68,7 @@ public class CowdetailsActivity extends AppCompatActivity {
 
                     Log.d("aynaa", "onDataChange: "+getID);
 
-                    CowDetails details = new CowDetails(getID,getCategory,getWeight,getMilk);
+                    CowDetails details = new CowDetails(getID,getCategory,getWeight,getMilk,cowKey);
                     cowList.add(details);
 
                 }
