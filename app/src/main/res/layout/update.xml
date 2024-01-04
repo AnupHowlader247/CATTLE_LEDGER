@@ -22,9 +22,10 @@
         android:textColor="@color/black"/>
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:hint="Weight(Kg)"
         android:background="@drawable/rounded"
         android:gravity="center"
         android:id="@+id/updatweight"/>
@@ -39,9 +40,10 @@
         android:textColor="@color/black"/>
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:hint="Milk(Kg)"
         android:background="@drawable/rounded"
         android:gravity="center"
         android:id="@+id/updatemilk"/>

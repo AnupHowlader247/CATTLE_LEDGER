@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="middle"
         android:text="Add Cow Details"
+        android:background="@drawable/rounded"
         android:textAlignment="center"
         android:textColor="#3F51B5"
         android:textColorLink="#673AB7"
