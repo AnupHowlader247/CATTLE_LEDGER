@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +48,7 @@ public class CowAdapter extends RecyclerView.Adapter<CowAdapter.CowViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CowViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CowViewHolder holder, final int position) {
        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         CowDetails cowDetails = cowDetailsArrayList.get(position);
@@ -54,6 +56,11 @@ public class CowAdapter extends RecyclerView.Adapter<CowAdapter.CowViewHolder> {
         holder.Category.setText(cowDetails.getType());
         holder.Weight.setText(String.valueOf(cowDetails.getWeight()));
         holder.Milk.setText(String.valueOf(cowDetails.getMilk()));
+        if (cowDetails.getMilk() == null || cowDetails.getMilk().isEmpty()) {
+            holder.milvisible.setVisibility(View.GONE);
+        } else {
+            holder.milvisible.setVisibility(View.VISIBLE);
+        }
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +77,11 @@ public class CowAdapter extends RecyclerView.Adapter<CowAdapter.CowViewHolder> {
                 Button update = view1.findViewById(R.id.btnUpdate);
                 weight.setText(cowDetails.getWeight());
                 milk.setText(cowDetails.getMilk());
+                /*if (cowDetails.getMilk() == null || cowDetails.getMilk().isEmpty()) {
+                    holder.Updatemilk.setVisibility(View.GONE);
+                } else {
+                    holder.Updatemilk.setVisibility(View.VISIBLE);
+                }*/
                 dialogPlus.show();
                 update.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -77,22 +89,48 @@ public class CowAdapter extends RecyclerView.Adapter<CowAdapter.CowViewHolder> {
                         Map<String,Object> map = new HashMap<>();
                         map.put("weight",weight.getText().toString());
                         map.put("milk",milk.getText().toString());
+
                         FirebaseDatabase.getInstance().getReference().child("users").child(mAuth.getCurrentUser().getUid().toString()).child("cows").child(cowDetails.getKey()).updateChildren(map)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(holder.Weight.getContext(), " Data Updated Successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(holder.ID.getContext(), " Data Updated Successfully", Toast.LENGTH_SHORT).show();
                                         dialogPlus.dismiss();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(holder.Weight.getContext(), " Error Updating Data", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(holder.ID.getContext(), " Error Updating Data", Toast.LENGTH_SHORT).show();
                                     }
                                 });
+
                     }
                 });
+
+            }
+        });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(holder.ID.getContext());
+                builder.setTitle("Are you sure?");
+                builder.setMessage("Deleted data can't undo");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        FirebaseDatabase.getInstance().getReference().child("users").child(mAuth.getCurrentUser().getUid().toString()).child("cows").child(cowDetails.getKey()).removeValue();
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        Toast.makeText(holder.ID.getContext(), " Cancelled.", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                builder.show();
             }
         });
 
@@ -110,7 +148,7 @@ public class CowAdapter extends RecyclerView.Adapter<CowAdapter.CowViewHolder> {
     }
 
     public static class CowViewHolder extends RecyclerView.ViewHolder {
-        TextView ID, Category, Weight, Milk;
+        TextView ID, Category, Weight, Milk,milvisible,Updatemilk;
         Button btnEdit,btnDelete;
 
         public CowViewHolder(@NonNull View itemView) {
@@ -121,6 +159,8 @@ public class CowAdapter extends RecyclerView.Adapter<CowAdapter.CowViewHolder> {
             Milk = itemView.findViewById(R.id.cow_milk);
             btnDelete = itemView.findViewById(R.id.Deletebtn);
             btnEdit = itemView.findViewById(R.id.btnupdate);
+            milvisible = itemView.findViewById(R.id.Milk);
+            Updatemilk = itemView.findViewById(R.id.updatemilk);
         }
     }
 }

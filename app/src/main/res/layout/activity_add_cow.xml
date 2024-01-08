@@ -4,25 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCowActivity"
-    android:background="@color/yellow">
+    android:background="@color/yellow"
+    android:visibility="visible"
+    tools:context=".AddCowActivity">
 
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="316dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/rounded"
         android:ellipsize="middle"
         android:text="Add Cow Details"
-        android:background="@drawable/rounded"
         android:textAlignment="center"
         android:textColor="#3F51B5"
         android:textColorLink="#673AB7"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backAdd"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
@@ -113,7 +114,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Spinner" />
 
-    
+    <Button
+        android:id="@+id/backAdd"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="671dp"
+        android:onClick="Addcowback"
+        android:shadowColor="#F4511E"
+        android:text="Back"
+        android:textColorHighlight="#F4511E"
+        android:textColorLink="#F4511E"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="#F4511E"
+        app:strokeColor="#F4511E" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

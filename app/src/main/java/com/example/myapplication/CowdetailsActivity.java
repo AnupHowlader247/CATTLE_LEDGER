@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class CowdetailsActivity extends AppCompatActivity {
+    TextView textView;
     RecyclerView recyclerView;
 
     CowAdapter CowAdapter;
@@ -54,10 +56,11 @@ public class CowdetailsActivity extends AppCompatActivity {
         //Retrieving data from database
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            // Inside onDataChange method
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cowList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.child(mAuth.getCurrentUser().getUid().toString()).child("cows").getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.child(mAuth.getCurrentUser().getUid().toString()).child("cows").getChildren()) {
 
                     String cowKey = dataSnapshot.getKey();
                     String getID = dataSnapshot.child("id").getValue(String.class);
@@ -65,16 +68,21 @@ public class CowdetailsActivity extends AppCompatActivity {
                     String getWeight = dataSnapshot.child("weight").getValue(String.class);
                     String getMilk = dataSnapshot.child("milk").getValue(String.class);
 
+                    Log.d("aynaa", "onDataChange: " + getID);
 
-                    Log.d("aynaa", "onDataChange: "+getID);
-
-                    CowDetails details = new CowDetails(getID,getCategory,getWeight,getMilk,cowKey);
+                    CowDetails details = new CowDetails(getID, getCategory, getWeight, getMilk, cowKey);
                     cowList.add(details);
 
                 }
                 Collections.reverse(cowList);
                 CowAdapter.notifyDataSetChanged();
+
+
+
             }
+
+// ...
+
 
 
             @Override

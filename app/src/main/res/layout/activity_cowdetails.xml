@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
+        android:background="@drawable/rounded"
         android:focusable="false"
+        app:closeIcon="@drawable/baseline_clear_24"
         app:iconifiedByDefault="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,39 +25,35 @@
         app:layout_constraintVertical_bias="0.0"
         app:queryHint="Search..."
         app:searchHintIcon="@null"
-        android:background="@color/white"
-        app:closeIcon="@drawable/baseline_clear_24"
-        app:searchIcon="@drawable/baseline_search_24"
-        />
+        app:searchIcon="@drawable/baseline_search_24" />
 
     <TextView
         android:id="@+id/textViewcowdetls"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="181dp"
-        android:layout_marginEnd="172dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="46dp"
         android:text="Here is the details of  Cow!"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/dtlsback"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dtlsback"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/dtlsback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="154dp"
-        android:layout_marginEnd="167dp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="6dp"
         android:onClick="DtlsBack"
         android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/search"
+        app:layout_constraintEnd_toStartOf="@+id/textViewcowdetls"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"

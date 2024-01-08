@@ -68,5 +68,10 @@ public class ExpenseActivity extends AppCompatActivity {
             }
         });
     }
+    public void ExpenseBack(View view) {
+        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+        startActivity(intent);
+        finish();
 
+    }
 }

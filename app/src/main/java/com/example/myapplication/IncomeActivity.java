@@ -68,5 +68,10 @@ public class IncomeActivity extends AppCompatActivity {
         });
     }
 
+    public void IncomeBack(View view) {
+        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+        startActivity(intent);
+        finish();
 
+    }
 }

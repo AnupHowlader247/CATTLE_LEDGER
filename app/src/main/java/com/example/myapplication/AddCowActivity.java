@@ -28,7 +28,7 @@ public class AddCowActivity extends AppCompatActivity {
 
     String Value;
     FirebaseAuth mAuth;
-    Button btnAdd;
+    Button btnAdd,btnBack;
     Spinner spinner;
     String [] CowsType = {"Cow","Bull"};
 
@@ -41,6 +41,7 @@ public class AddCowActivity extends AppCompatActivity {
         spinner = findViewById(R.id.Spinner);
         weight = findViewById(R.id.cowWeight);
         milk = findViewById(R.id.cowMilk);
+        btnBack = findViewById(R.id.backAdd);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -52,16 +53,22 @@ public class AddCowActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                 Value = parent.getItemAtPosition(position).toString();
-                Log.d( "hagu","onItemSelected: "+Value);
+                Value = parent.getItemAtPosition(position).toString();
+                Log.d("hagu", "onItemSelected: " + Value);
 
+                // Check if the selected value is "Bull" and hide the "milk" EditText accordingly
+                if (Value.equalsIgnoreCase("Bull")) {
+                    milk.setVisibility(View.GONE);
+                } else {
+                    milk.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +97,13 @@ public class AddCowActivity extends AppCompatActivity {
 
             }
         });
+
+
+    }
+    public void Addcowback(View view) {
+        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 
