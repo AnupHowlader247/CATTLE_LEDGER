@@ -54,7 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
 
             expDate = itemView.findViewById(R.id.ex_date);
-            expType = itemView.findViewById(R.id.ex_type);
+            expType = itemView.findViewById(R.id.Incometotal);
             expAmount = itemView.findViewById(R.id.ex_amount);
 
         }

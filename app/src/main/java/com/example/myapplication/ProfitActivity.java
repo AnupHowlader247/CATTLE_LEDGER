@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,62 +16,76 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfitActivity extends AppCompatActivity {
 
-    TextView totalIncomeTextView, totalExpenseTextView;
-    FirebaseAuth mAuth;
+    TextView totalIncomeTextView,totalExpenseTextview;
+
     DatabaseReference databaseReference;
+    ValueEventListener eventListener,eventListener1;
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profit);
+        totalIncomeTextView=findViewById(R.id.Incometotal);
+        totalExpenseTextview=findViewById(R.id.Expensetotal);
 
-        totalIncomeTextView = findViewById(R.id.Incometotal);
-        totalExpenseTextView = findViewById(R.id.Expensetotal);
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         // Retrieve total income
-        databaseReference.child(mAuth.getCurrentUser().getUid()).child("income")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        double totalIncome = 0;
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            String getIncomeAmount = snapshot.child("amount").getValue(String.class);
-                            if(getIncomeAmount==null){continue;}
+        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            totalIncome += Double.parseDouble(getIncomeAmount);
-                        }
-                        totalIncomeTextView.setText(String.valueOf((int) totalIncome)); // Convert to String
+                int totalIncome = 0;
+                for (DataSnapshot dataSnapshot : snapshot.child(mAuth.getCurrentUser().getUid().toString()).child("income").getChildren()) {
+                    String getIncAmount = dataSnapshot.child("amount").getValue(String.class);
+
+                    if (getIncAmount == null) {
+                        continue;
                     }
+                    totalIncome += Integer.parseInt(getIncAmount);
+                }
+                totalIncomeTextView.setText(String.valueOf(totalIncome +" Tk"));
+            }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-
-
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle onCancelled if needed
+            }
+        });
         // Retrieve total expenses
-        databaseReference.child(mAuth.getCurrentUser().getUid()).child("expenses")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        double totalExpense = 0;
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            String getExpenseAmount = snapshot.child("ex_amount").getValue(String.class);
-                            if(getExpenseAmount==null){continue;}
-                            totalExpense += Double.parseDouble(getExpenseAmount);
+        eventListener1 = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int totalExpense = 0;
+                for (DataSnapshot dataSnapshot : snapshot.child(mAuth.getCurrentUser().getUid()).child("Expense").getChildren()) {
+                    String getExpamount = dataSnapshot.child("ex_amount").getValue(String.class);
 
-                        }
-
-                        totalExpenseTextView.setText(String.valueOf((int)  totalExpense));
+                    if (getExpamount == null) {
+                        continue;
                     }
+                    totalExpense += Integer.parseInt(getExpamount);
+                }
+                totalExpenseTextview.setText(String.valueOf(totalExpense + " Tk"));
+            }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle onCancelled if needed
+            }
+        });
+
+
+
+
+
+
+
+
+
     }
 
     public void Backfrmprft(View view) {

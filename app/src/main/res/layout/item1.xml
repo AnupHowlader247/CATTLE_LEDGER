@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ex_date"
+                android:id="@+id/income_date"
                 android:layout_marginStart="8dp"
                 android:text="31 Dec,2023"
                 android:textColor="@color/black"
@@ -50,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Type : "
+                android:text="incType : "
                 android:textColor="@color/black"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -58,9 +58,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/Incometotal"
+                android:id="@+id/income_type"
                 android:layout_marginStart="8dp"
-                android:text="Medicine"
+                android:text="Milk"
                 android:textColor="@color/black"
                 android:textSize="20sp"/>
 
@@ -84,7 +84,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ex_amount"
+                android:id="@+id/income_amount"
                 android:layout_marginStart="8dp"
                 android:text="5000"
                 android:textColor="@color/black"

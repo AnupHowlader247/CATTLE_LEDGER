@@ -24,8 +24,8 @@ import java.util.Collections;
 
 public class IncomedetailsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    MyAdapter myAdapter;
-    ArrayList<ExpenseDetails> expList;
+    IncomeAdapter incomeAdapter;
+    ArrayList<IncomeDetails>incList;
 
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
@@ -44,30 +44,30 @@ public class IncomedetailsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        expList = new ArrayList<>();
-        myAdapter = new MyAdapter(IncomedetailsActivity.this,expList);
-        recyclerView.setAdapter(myAdapter);
+        incList = new ArrayList<>();
+        incomeAdapter = new IncomeAdapter(IncomedetailsActivity.this,incList);
+        recyclerView.setAdapter(incomeAdapter);
 
         //Retrieving data from database
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                expList.clear();
+                incList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.child(mAuth.getCurrentUser().getUid().toString()).child("income").getChildren()){
 
-                    String getExpDate = dataSnapshot.child("ICdate").getValue(String.class);
-                    String getExpType = dataSnapshot.child("type").getValue(String.class);
-                    String getExpAmount = dataSnapshot.child("amount").getValue(String.class);
+                    String getIncDate = dataSnapshot.child("ICdate").getValue(String.class);
+                    String getIncType = dataSnapshot.child("type").getValue(String.class);
+                    String getIncAmount = dataSnapshot.child("amount").getValue(String.class);
 
-                    Log.d("aynaa", "onDataChange: "+getExpDate);
+                    Log.d("aynaa", "onDataChange: "+getIncDate);
 
-                    ExpenseDetails details = new ExpenseDetails(getExpType,getExpDate,getExpAmount);
-                    expList.add(details);
+                    IncomeDetails details = new IncomeDetails(getIncType,getIncDate,getIncAmount);
+                    incList.add(details);
 
                 }
-                Collections.reverse(expList);
-                myAdapter.notifyDataSetChanged();
+                Collections.reverse(incList);
+                incomeAdapter.notifyDataSetChanged();
             }
 
             @Override
